@@ -14,22 +14,50 @@
  * }
  */
 class Solution {
-    int bottom;
+    
     int depth=-1;
+     int bottom;
 
     public int findBottomLeftValue(TreeNode root) {
-        solve(root,0);;
+        //Using DFS
+        // solve(root,0);;
+        // return bottom;
+        //Using BFS
+       
+        BFS(root);
+        
         return bottom;
     }
-    void solve(TreeNode root,int currD){
-            if(root==null)
+    void BFS(TreeNode root){
+        if(root==null){
             return;
-
-            if(currD>depth){
-                bottom=root.val;
-                depth=currD;
+        }
+        Queue<TreeNode> q=new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty()){
+            int n=q.size();
+            while(n-->0){
+                TreeNode temp=q.poll();
+                   bottom=temp.val;
+                if(temp.right!=null){
+                    q.add(temp.right);
+                }
+                if(temp.left!=null){
+                    q.add(temp.left);
+                }
             }
-            solve(root.left,currD+1);
-            solve(root.right,currD+1);
+           
+        }
     }
+    // void solve(TreeNode root,int currD){
+    //         if(root==null)
+    //         return;
+
+    //         if(currD>depth){
+    //             bottom=root.val;
+    //             depth=currD;
+    //         }
+    //         solve(root.left,currD+1);
+    //         solve(root.right,currD+1);
+    // }
 }
